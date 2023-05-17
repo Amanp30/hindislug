@@ -1,13 +1,9 @@
- String.prototype.hindislug = function () {
-    let values = this.replace(
-      /[*+~.()'~!@#$%^&?"!:\\/^`()\+=\[\]{};:'"\\|\/,.<>?]/g,
-      ""
-    ).split(" ");
-    values = values.filter((item) => item !== "");
-    const slug = values
-      .map((item) => {
-        return item.replace(/[*+~.()'?"!%:@/^]/g, "");
-      })
-      .join("-");
-    return slug.toLowerCase();
+  String.prototype.hindislug = function (separator) {
+    const regex =
+      /[*+~.()'~!@#$%^&?"\-_/।!:\\/^`\+=\[\]{};:'"\\|\/,.<>?/\f/‘’/\t//\v/]/g;
+    const values = this.split(" ")
+      .map((item) => item.replace(regex, ""))
+      .filter((item) => item !== "");
+    const slug = values.join(separator || "-").toLowerCase();
+    return slug;
   };
